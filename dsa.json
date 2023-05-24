@@ -1,0 +1,324 @@
+{
+  "questions": [
+    {
+      "question": "String 1: Reverse String",
+      "explanation": "Write a function to reverse a given string.",
+      "input": "input: 'Hello'\n",
+      "output": "output: 'olleH'\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n\nstd::string reverseString(std::string str) {\n    int left = 0;\n    int right = str.length() - 1;\n    while (left < right) {\n        std::swap(str[left++], str[right--]);\n    }\n    return str;\n}\n\nint main() {\n    std::string input = \"Hello\";\n    std::cout << reverseString(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class ReverseString {\n    public static String reverseString(String str) {\n        char[] charArray = str.toCharArray();\n        int left = 0;\n        int right = str.length() - 1;\n        while (left < right) {\n            char temp = charArray[left];\n            charArray[left] = charArray[right];\n            charArray[right] = temp;\n            left++;\n            right--;\n        }\n        return new String(charArray);\n    }\n\n    public static void main(String[] args) {\n        String input = \"Hello\";\n        System.out.println(reverseString(input));\n    }\n}\n",
+      "python": "python\ndef reverse_string(str):\n    char_array = list(str)\n    left = 0\n    right = len(str) - 1\n    while left < right:\n        char_array[left], char_array[right] = char_array[right], char_array[left]\n        left += 1\n        right -= 1\n    return ''.join(char_array)\n\ninput = 'Hello'\nprint(reverse_string(input))\n",
+      "explanation_code": "This code snippet reverses a given string by swapping characters from the left and right ends of the string until they meet in the middle."
+    },
+    {
+      "question": "String 2: Palindrome Check",
+      "explanation": "Write a function to check if a string is a palindrome.",
+      "input": "input: 'level'\n",
+      "output": "output: true\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n\nbool isPalindrome(std::string str) {\n    int left = 0;\n    int right = str.length() - 1;\n    while (left < right) {\n        if (str[left++] != str[right--]) {\n            return false;\n        }\n    }\n    return true;\n}\n\nint main() {\n    std::string input = \"level\";\n    std::cout << std::boolalpha << isPalindrome(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class PalindromeCheck {\n    public static boolean isPalindrome(String str) {\n        int left = 0;\n        int right = str.length() - 1;\n        while (left < right) {\n            if (str.charAt(left++) != str.charAt(right--)) {\n                return false;\n            }\n        }\n        return true;\n    }\n\n    public static void main(String[] args) {\n        String input = \"level\";\n        System.out.println(isPalindrome(input));\n    }\n}\n",
+      "python": "python\ndef is_palindrome(str):\n    left = 0\n    right = len(str) - 1\n    while left < right:\n        if str[left] != str[right]:\n            return False\n        left += 1\n        right -= 1\n    return True\n\ninput = 'level'\nprint(is_palindrome(input))\n",
+      "explanation_code": "This code snippet checks whether a given string is a palindrome by comparing characters from the left and right ends of the string, moving towards the center."
+    },
+    {
+      "question": "String 3: Anagram Check",
+      "explanation": "Write a function to check if two strings are anagrams.",
+      "input": "input: 'listen', 'silent'\n",
+      "output": "output: true\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n#include <algorithm>\n\nbool isAnagram(std::string str1, std::string str2) {\n    if (str1.length() != str2.length()) {\n        return false;\n    }\n    std::sort(str1.begin(), str1.end());\n    std::sort(str2.begin(), str2.end());\n    return str1 == str2;\n}\n\nint main() {\n    std::string input1 = \"listen\";\n    std::string input2 = \"silent\";\n    std::cout << std::boolalpha << isAnagram(input1, input2) << std::endl;\n    return 0;\n}\n",
+      "java": "java\nimport java.util.Arrays;\n\npublic class AnagramCheck {\n    public static boolean isAnagram(String str1, String str2) {\n        if (str1.length() != str2.length()) {\n            return false;\n        }\n        char[] charArray1 = str1.toCharArray();\n        char[] charArray2 = str2.toCharArray();\n        Arrays.sort(charArray1);\n        Arrays.sort(charArray2);\n        return Arrays.equals(charArray1, charArray2);\n    }\n\n    public static void main(String[] args) {\n        String input1 = \"listen\";\n        String input2 = \"silent\";\n        System.out.println(isAnagram(input1, input2));\n    }\n}\n",
+      "python": "python\nfrom collections import Counter\n\n\ndef is_anagram(str1, str2):\n    return Counter(str1) == Counter(str2)\n\n\ninput1 = 'listen'\ninput2 = 'silent'\nprint(is_anagram(input1, input2))\n",
+      "explanation_code": "This code snippet checks whether two strings are anagrams by comparing if they have the same characters with the same frequency."
+    },
+    {
+      "question": "String 4: Longest Substring Without Repeating Characters",
+      "explanation": "Write a function to find the length of the longest substring without repeating characters.",
+      "input": "input: 'abcabcbb'\n",
+      "output": "output: 3\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n#include <unordered_set>\n\nint lengthOfLongestSubstring(std::string str) {\n    int maxLength = 0;\n    int left = 0;\n    int right = 0;\n    std::unordered_set<char> uniqueChars;\n    while (right < str.length()) {\n        if (uniqueChars.find(str[right]) == uniqueChars.end()) {\n            uniqueChars.insert(str[right++]);\n            maxLength = std::max(maxLength, right - left);\n        } else {\n            uniqueChars.erase(str[left++]);\n        }\n    }\n    return maxLength;\n}\n\nint main() {\n    std::string input = \"abcabcbb\";\n    std::cout << lengthOfLongestSubstring(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\nimport java.util.HashSet;\n\npublic class LongestSubstring {\n    public static int lengthOfLongestSubstring(String str) {\n        int maxLength = 0;\n        int left = 0;\n        int right = 0;\n        HashSet<Character> uniqueChars = new HashSet<>();\n        while (right < str.length()) {\n            if (!uniqueChars.contains(str.charAt(right))) {\n                uniqueChars.add(str.charAt(right++));\n                maxLength = Math.max(maxLength, right - left);\n            } else {\n                uniqueChars.remove(str.charAt(left++));\n            }\n        }\n        return maxLength;\n    }\n\n    public static void main(String[] args) {\n        String input = \"abcabcbb\";\n        System.out.println(lengthOfLongestSubstring(input));\n    }\n}\n",
+      "python": "python\n\ndef length_of_longest_substring(str):\n    max_length = 0\n    left = 0\n    right = 0\n    unique_chars = set()\n    while right < len(str):\n        if str[right] not in unique_chars:\n            unique_chars.add(str[right])\n            max_length = max(max_length, right - left + 1)\n            right += 1\n        else:\n            unique_chars.remove(str[left])\n            left += 1\n    return max_length\n\n\ninput = 'abcabcbb'\nprint(length_of_longest_substring(input))\n",
+      "explanation_code": "This code snippet finds the length of the longest substring without repeating characters by using a sliding window approach and a set to track unique characters."
+    },
+    {
+      "question": "String 5: String Compression",
+      "explanation": "Write a function to perform basic string compression using the counts of repeated characters.",
+      "input": "input: 'aabcccccaaa'\n",
+      "output": "output: 'a2b1c5a3'\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n#include <sstream>\n\nstd::string compressString(std::string str) {\n    std::stringstream compressed;\n    int count = 1;\n    for (int i = 1; i < str.length(); i++) {\n        if (str[i] == str[i - 1]) {\n            count++;\n        } else {\n            compressed << str[i - 1] << count;\n            count = 1;\n        }\n    }\n    compressed << str.back() << count;\n    std::string compressedString = compressed.str();\n    return compressedString.length() < str.length() ? compressedString : str;\n}\n\nint main() {\n    std::string input = \"aabcccccaaa\";\n    std::cout << compressString(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class StringCompression {\n    public static String compressString(String str) {\n        StringBuilder compressed = new StringBuilder();\n        int count = 1;\n        for (int i = 1; i < str.length(); i++) {\n            if (str.charAt(i) == str.charAt(i - 1)) {\n                count++;\n            } else {\n                compressed.append(str.charAt(i - 1)).append(count);\n                count = 1;\n            }\n        }\n        compressed.append(str.charAt(str.length() - 1)).append(count);\n        String compressedString = compressed.toString();\n        return compressedString.length() < str.length() ? compressedString : str;\n    }\n\n    public static void main(String[] args) {\n        String input = \"aabcccccaaa\";\n        System.out.println(compressString(input));\n    }\n}\n",
+      "python": "python\n\ndef compress_string(str):\n    compressed = []\n    count = 1\n    for i in range(1, len(str)):\n        if str[i] == str[i - 1]:\n            count += 1\n        else:\n            compressed.append(str[i - 1] + str(count))\n            count = 1\n    compressed.append(str[-1] + str(count))\n    compressed_string = ''.join(compressed)\n    return compressed_string if len(compressed_string) < len(str) else str\n\n\ninput = 'aabcccccaaa'\nprint(compress_string(input))\n",
+      "explanation_code": "This code snippet performs basic string compression by counting repeated characters and creating a new compressed string with the character and count. If the compressed string is shorter than the original string, it is returned; otherwise, the original string is returned."
+    },
+    {
+      "question": "String 6: String Rotation",
+      "explanation": "Write a function to check if one string is a rotation of another string.",
+      "input": "input: 'waterbottle', 'erbottlewat'\n",
+      "output": "output: true\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n\nbool isRotation(std::string str1, std::string str2) {\n    if (str1.length() != str2.length()) {\n        return false;\n    }\n    std::string concatenated = str1 + str1;\n    return concatenated.find(str2) != std::string::npos;\n}\n\nint main() {\n    std::string input1 = \"waterbottle\";\n    std::string input2 = \"erbottlewat\";\n    std::cout << std::boolalpha << isRotation(input1, input2) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class StringRotation {\n    public static boolean isRotation(String str1, String str2) {\n        if (str1.length() != str2.length()) {\n            return false;\n        }\n        String concatenated = str1 + str1;\n        return concatenated.contains(str2);\n    }\n\n    public static void main(String[] args) {\n        String input1 = \"waterbottle\";\n        String input2 = \"erbottlewat\";\n        System.out.println(isRotation(input1, input2));\n    }\n}\n",
+      "python": "python\n\ndef is_rotation(str1, str2):\n    if len(str1) != len(str2):\n        return False\n    concatenated = str1 + str1\n    return str2 in concatenated\n\n\ninput1 = 'waterbottle'\ninput2 = 'erbottlewat'\nprint(is_rotation(input1, input2))\n",
+      "explanation_code": "This code snippet checks whether one string is a rotation of another string by concatenating the first string with itself and checking if the second string is a substring of the concatenated string."
+    },
+    {
+      "question": "String 7: Reverse Words in a String",
+      "explanation": "Write a function to reverse the order of words in a string.",
+      "input": "input: 'Hello World'\n",
+      "output": "output: 'World Hello'\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n#include <sstream>\n#include <vector>\n\nstd::string reverseWords(std::string str) {\n    std::stringstream ss(str);\n    std::string word;\n    std::vector<std::string> words;\n    while (ss >> word) {\n        words.push_back(word);\n    }\n    std::string reversed;\n    for (int i = words.size() - 1; i >= 0; i--) {\n        reversed += words[i];\n        if (i > 0) {\n            reversed += ' ';\n        }\n    }\n    return reversed;\n}\n\nint main() {\n    std::string input = \"Hello World\";\n    std::cout << reverseWords(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class ReverseWords {\n    public static String reverseWords(String str) {\n        String[] words = str.split(\" \");\n        StringBuilder reversed = new StringBuilder();\n        for (int i = words.length - 1; i >= 0; i--) {\n            reversed.append(words[i]);\n            if (i > 0) {\n                reversed.append(\" \");\n            }\n        }\n        return reversed.toString();\n    }\n\n    public static void main(String[] args) {\n        String input = \"Hello World\";\n        System.out.println(reverseWords(input));\n    }\n}\n",
+      "python": "python\n\ndef reverse_words(str):\n    words = str.split()\n    reversed = ' '.join(reversed(words))\n    return reversed\n\n\ninput = 'Hello World'\nprint(reverse_words(input))\n",
+      "explanation_code": "This code snippet reverses the order of words in a string by splitting the string into words, storing them in an array or vector, and then concatenating the words in reverse order."
+    },
+    {
+      "question": "String 8: Valid Parentheses",
+      "explanation": "Write a function to determine if a given string of parentheses is valid.",
+      "input": "input: '()[]{}'\n",
+      "output": "output: true\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n#include <stack>\n\nbool isValidParentheses(std::string str) {\n    std::stack<char> parentheses;\n    for (char c : str) {\n        if (c == '(' || c == '[' || c == '{') {\n            parentheses.push(c);\n        } else {\n            if (parentheses.empty()) {\n                return false;\n            }\n            if ((c == ')' && parentheses.top() != '(') ||\n                (c == ']' && parentheses.top() != '[') ||\n                (c == '}' && parentheses.top() != '{')) {\n                return false;\n            }\n            parentheses.pop();\n        }\n    }\n    return parentheses.empty();\n}\n\nint main() {\n    std::string input = \"()[]{}\";\n    std::cout << std::boolalpha << isValidParentheses(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\nimport java.util.Stack;\n\npublic class ValidParentheses {\n    public static boolean isValidParentheses(String str) {\n        Stack<Character> parentheses = new Stack<>();\n        for (char c : str.toCharArray()) {\n            if (c == '(' || c == '[' || c == '{') {\n                parentheses.push(c);\n            } else {\n                if (parentheses.isEmpty()) {\n                    return false;\n                }\n                if ((c == ')' && parentheses.peek() != '(') ||\n                    (c == ']' && parentheses.peek() != '[') ||\n                    (c == '}' && parentheses.peek() != '{')) {\n                    return false;\n                }\n                parentheses.pop();\n            }\n        }\n        return parentheses.isEmpty();\n    }\n\n    public static void main(String[] args) {\n        String input = \"()[]{}\";\n        System.out.println(isValidParentheses(input));\n    }\n}\n",
+      "python": "python\n\ndef is_valid_parentheses(str):\n    parentheses = []\n    for c in str:\n        if c == '(' or c == '[' or c == '{':\n            parentheses.append(c)\n        else:\n            if not parentheses:\n                return False\n            if (c == ')' and parentheses[-1] != '(') or \\\n               (c == ']' and parentheses[-1] != '[') or \\\n               (c == '}' and parentheses[-1] != '{'):\n                return False\n            parentheses.pop()\n    return not parentheses\n\n\ninput = '()[]{}'\nprint(is_valid_parentheses(input))\n",
+      "explanation_code": "This code snippet checks the validity of parentheses in a given string by using a stack data structure. It iterates through the characters in the string and pushes opening parentheses onto the stack and pops matching opening parentheses when encountering closing parentheses. The code returns true if all parentheses are matched and the stack is empty."
+    },
+    {
+      "question": "String 9: Longest Palindromic Substring",
+      "explanation": "Write a function to find the longest palindromic substring in a given string.",
+      "input": "input: 'babad'\n",
+      "output": "output: 'bab' or 'aba'\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n\nstd::string longestPalindrome(std::string str) {\n    int maxLength = 0;\n    int start = 0;\n    for (int i = 0; i < str.length(); i++) {\n        int len1 = expandAroundCenter(str, i, i);\n        int len2 = expandAroundCenter(str, i, i + 1);\n        int length = std::max(len1, len2);\n        if (length > maxLength) {\n            maxLength = length;\n            start = i - (length - 1) / 2;\n        }\n    }\n    return str.substr(start, maxLength);\n}\n\nint expandAroundCenter(std::string str, int left, int right) {\n    while (left >= 0 && right < str.length() && str[left] == str[right]) {\n        left--;\n        right++;\n    }\n    return right - left - 1;\n}\n\nint main() {\n    std::string input = \"babad\";\n    std::cout << longestPalindrome(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class LongestPalindromicSubstring {\n    public static String longestPalindrome(String str) {\n        int maxLength = 0;\n        int start = 0;\n        for (int i = 0; i < str.length(); i++) {\n            int len1 = expandAroundCenter(str, i, i);\n            int len2 = expandAroundCenter(str, i, i + 1);\n            int length = Math.max(len1, len2);\n            if (length > maxLength) {\n                maxLength = length;\n                start = i - (length - 1) / 2;\n            }\n        }\n        return str.substring(start, start + maxLength);\n    }\n\n    public static int expandAroundCenter(String str, int left, int right) {\n        while (left >= 0 && right < str.length() && str.charAt(left) == str.charAt(right)) {\n            left--;\n            right++;\n        }\n        return right - left - 1;\n    }\n\n    public static void main(String[] args) {\n        String input = \"babad\";\n        System.out.println(longestPalindrome(input));\n    }\n}\n",
+      "python": "python\n\ndef longest_palindrome(str):\n    maxLength = 0\n    start = 0\n    for i in range(len(str)):\n        len1 = expand_around_center(str, i, i)\n        len2 = expand_around_center(str, i, i + 1)\n        length = max(len1, len2)\n        if length > maxLength:\n            maxLength = length\n            start = i - (length - 1) // 2\n    return str[start : start + maxLength]\n\n\ndef expand_around_center(str, left, right):\n    while left >= 0 and right < len(str) and str[left] == str[right]:\n        left -= 1\n        right += 1\n    return right - left - 1\n\n\ninput = 'babad'\nprint(longest_palindrome(input))\n",
+      "explanation_code": "This code snippet finds the longest palindromic substring in a given string using the Expand Around Center approach. It iterates through each character in the string and expands around it to check for palindromic substrings of odd and even lengths. The code returns the longest palindromic substring found."
+    },
+    {
+      "question": "String 10: String Compression",
+      "explanation": "Write a function to perform basic string compression by replacing repeated characters with the count of repetitions.",
+      "input": "input: 'aabcccccaaa'\n",
+      "output": "output: 'a2b1c5a3'\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n#include <sstream>\n\nstd::string compressString(std::string str) {\n    std::stringstream compressed;\n    int count = 1;\n    for (int i = 1; i < str.length(); i++) {\n        if (str[i] == str[i - 1]) {\n            count++;\n        } else {\n            compressed << str[i - 1] << count;\n            count = 1;\n        }\n    }\n    compressed << str[str.length() - 1] << count;\n    std::string compressedStr = compressed.str();\n    return compressedStr.length() < str.length() ? compressedStr : str;\n}\n\nint main() {\n    std::string input = \"aabcccccaaa\";\n    std::cout << compressString(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class StringCompression {\n    public static String compressString(String str) {\n        StringBuilder compressed = new StringBuilder();\n        int count = 1;\n        for (int i = 1; i < str.length(); i++) {\n            if (str.charAt(i) == str.charAt(i - 1)) {\n                count++;\n            } else {\n                compressed.append(str.charAt(i - 1)).append(count);\n                count = 1;\n            }\n        }\n        compressed.append(str.charAt(str.length() - 1)).append(count);\n        String compressedStr = compressed.toString();\n        return compressedStr.length() < str.length() ? compressedStr : str;\n    }\n\n    public static void main(String[] args) {\n        String input = \"aabcccccaaa\";\n        System.out.println(compressString(input));\n    }\n}\n",
+      "python": "python\n\ndef compress_string(str):\n    compressed = []\n    count = 1\n    for i in range(1, len(str)):\n        if str[i] == str[i - 1]:\n            count += 1\n        else:\n            compressed.append(str[i - 1] + str(count))\n            count = 1\n    compressed.append(str[-1] + str(count))\n    compressed_str = ''.join(compressed)\n    return compressed_str if len(compressed_str) < len(str) else str\n\n\ninput = 'aabcccccaaa'\nprint(compress_string(input))\n",
+      "explanation_code": "This code snippet performs basic string compression by iterating through the characters of the string and counting consecutive repetitions. It appends the character and its count to a compressed string. If the compressed string is shorter than the original string, it is returned; otherwise, the original string is returned."
+    },
+    {
+      "question": "String 11: String to Integer (atoi)",
+      "explanation": "Implement the `myAtoi` function, which converts a string to an integer.",
+      "input": "input: '42'\n",
+      "output": "output: 42\n",
+      "cpp": "cpp\n#include <iostream>\n#include <string>\n#include <climits>\n\nint myAtoi(std::string str) {\n    int i = 0;\n    int sign = 1;\n    int result = 0;\n\n    // Remove leading whitespace\n    while (str[i] == ' ')\n        i++;\n\n    // Check sign\n    if (str[i] == '+' || str[i] == '-') {\n        sign = (str[i] == '-') ? -1 : 1;\n        i++;\n    }\n\n    // Process digits\n    while (i < str.length() && isdigit(str[i])) {\n        int digit = str[i] - '0';\n\n        // Check for overflow\n        if (result > INT_MAX / 10 || (result == INT_MAX / 10 && digit > INT_MAX % 10)) {\n            return (sign == 1) ? INT_MAX : INT_MIN;\n        }\n\n        result = result * 10 + digit;\n        i++;\n    }\n\n    return result * sign;\n}\n\nint main() {\n    std::string input = \"42\";\n    std::cout << myAtoi(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class StringToInteger {\n    public static int myAtoi(String str) {\n        int i = 0;\n        int sign = 1;\n        int result = 0;\n\n        // Remove leading whitespace\n        while (i < str.length() && str.charAt(i) == ' ')\n            i++;\n\n        // Check sign\n        if (i < str.length() && (str.charAt(i) == '+' || str.charAt(i) == '-')) {\n            sign = (str.charAt(i) == '-') ? -1 : 1;\n            i++;\n        }\n\n        // Process digits\n        while (i < str.length() && Character.isDigit(str.charAt(i))) {\n            int digit = str.charAt(i) - '0';\n\n            // Check for overflow\n            if (result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10)) {\n                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;\n            }\n\n            result = result * 10 + digit;\n            i++;\n        }\n\n        return result * sign;\n    }\n\n    public static void main(String[] args) {\n        String input = \"42\";\n        System.out.println(myAtoi(input));\n    }\n}\n",
+      "python": "python\n\ndef my_atoi(str):\n    str = str.strip()\n    if not str:\n        return 0\n\n    sign = 1\n    result = 0\n    i = 0\n\n    if str[0] == '+' or str[0] == '-':\n        sign = -1 if str[0] == '-' else 1\n        i += 1\n\n    while i < len(str) and str[i].isdigit():\n        digit = int(str[i])\n        result = result * 10 + digit\n\n        # Check for overflow\n        if sign == 1 and result > 2**31 - 1:\n            return 2**31 - 1\n        if sign == -1 and result > 2**31:\n            return -2**31\n\n        i += 1\n\n    return result * sign\n\n\ninput = '42'\nprint(my_atoi(input))\n",
+      "explanation_code": "This code snippet implements the `myAtoi` function, which converts a string to an integer. It removes leading whitespace, checks for a sign, processes digits, and handles overflow by returning `INT_MAX` or `INT_MIN` when necessary."
+    },
+    {
+      "question": "String 12: Longest Common Prefix",
+      "explanation": "Write a function to find the longest common prefix string amongst an array of strings.",
+      "input": "input: ['flower', 'flow', 'flight']\n",
+      "output": "output: 'fl'\n",
+      "cpp": "cpp\n#include <iostream>\n#include <vector>\n#include <string>\n\nstd::string longestCommonPrefix(std::vector<std::string>& strs) {\n    if (strs.empty())\n        return \"\";\n    std::string prefix = strs[0];\n    for (int i = 1; i < strs.size(); i++) {\n        while (strs[i].find(prefix) != 0) {\n            prefix = prefix.substr(0, prefix.length() - 1);\n            if (prefix.empty())\n                return \"\";\n        }\n    }\n    return prefix;\n}\n\nint main() {\n    std::vector<std::string> input = {\"flower\", \"flow\", \"flight\"};\n    std::cout << longestCommonPrefix(input) << std::endl;\n    return 0;\n}\n",
+      "java": "java\npublic class LongestCommonPrefix {\n    public static String longestCommonPrefix(String[] strs) {\n        if (strs == null || strs.length == 0)\n            return \"\";\n        String prefix = strs[0];\n        for (int i = 1; i < strs.length; i++) {\n            while (strs[i].indexOf(prefix) != 0) {\n                prefix = prefix.substring(0, prefix.length() - 1);\n                if (prefix.isEmpty())\n                    return \"\";\n            }\n        }\n        return prefix;\n    }\n\n    public static void main(String[] args) {\n        String[] input = {\"flower\", \"flow\", \"flight\"};\n        System.out.println(longestCommonPrefix(input));\n    }\n}\n",
+      "python": "python\n\ndef longest_common_prefix(strs):\n    if not strs:\n        return ''\n    prefix = strs[0]\n    for i in range(1, len(strs)):\n        while strs[i].find(prefix) != 0:\n            prefix = prefix[:-1]\n            if not prefix:\n                return ''\n    return prefix\n\n\ninput = ['flower', 'flow', 'flight']\nprint(longest_common_prefix(input))\n",
+      "explanation_code": "This code snippet finds the longest common prefix string among an array of strings. It starts with the first string as the initial prefix and iterates through the remaining strings, reducing the prefix until it is a valid prefix for all strings or becomes empty."
+    },
+    {
+      "question": "Array 1: Find the maximum element in an array.",
+      "explanation": "This question requires finding the largest element in an array.",
+      "input": "An array of integers.",
+      "output": "The maximum element in the array.",
+      "cpp": "cpp\n#include <iostream>\n#include <climits>\n\nint findMax(int arr[], int size) {\n    int max = INT_MIN;\n    for (int i = 0; i < size; i++) {\n        if (arr[i] > max) {\n            max = arr[i];\n        }\n    }\n    return max;\n}\n",
+      "java": "java\npublic class ArrayMax {\n    public static int findMax(int[] arr) {\n        int max = Integer.MIN_VALUE;\n        for (int i = 0; i < arr.length; i++) {\n            if (arr[i] > max) {\n                max = arr[i];\n            }\n        }\n        return max;\n    }\n}\n",
+      "python": "python\ndef find_max(arr):\n    max_element = float('-inf')\n    for num in arr:\n        if num > max_element:\n            max_element = num\n    return max_element\n",
+      "explanation_code": "The code traverses the array and keeps track of the maximum element found so far. It initializes the `max` variable to the smallest possible value (`INT_MIN` in cpp, `Integer.MIN_VALUE` in java, or `float('-inf')` in python). The code then iterates through the array and updates `max` if it encounters a larger element. Finally, it returns the maximum element found."
+    },
+    {
+      "question": "Array 2: Count the number of occurrences of a specific element in an array.",
+      "explanation": "This question requires counting how many times a given element appears in an array.",
+      "input": "An array of integers and a target element.",
+      "output": "The count of occurrences of the target element in the array.",
+      "cpp": "cpp\n#include <iostream>\n\nint countOccurrences(int arr[], int size, int target) {\n    int count = 0;\n    for (int i = 0; i < size; i++) {\n        if (arr[i] == target) {\n            count++;\n        }\n    }\n    return count;\n}\n",
+      "java": "java\npublic class ArrayOccurrences {\n    public static int countOccurrences(int[] arr, int target) {\n        int count = 0;\n        for (int i = 0; i < arr.length; i++) {\n            if (arr[i] == target) {\n                count++;\n            }\n        }\n        return count;\n    }\n}\n",
+      "python": "python\ndef count_occurrences(arr, target):\n    count = 0\n    for num in arr:\n        if num == target:\n            count += 1\n    return count\n",
+      "explanation_code": "The code iterates through the array and increments a `count` variable every time it encounters the target element. Finally, it returns the count of occurrences."
+    },
+    {
+      "question": "Array 3: Reverse an array in-place.",
+      "explanation": "This question requires reversing the elements of an array in-place.",
+      "input": "An array of integers.",
+      "output": "The same array with elements reversed.",
+      "cpp": "cpp\n#include <iostream>\n\nvoid reverseArray(int arr[], int size) {\n    int start = 0;\n    int end = size - 1;\n    while (start < end) {\n        int temp = arr[start];\n        arr[start] = arr[end];\n        arr[end] = temp;\n        start++;\n        end--;\n    }\n}\n",
+      "java": "java\npublic class ArrayReverse {\n    public static void reverseArray(int[] arr) {\n        int start = 0;\n        int end = arr.length - 1;\n        while (start < end) {\n            int temp = arr[start];\n            arr[start] = arr[end];\n            arr[end] = temp;\n            start++;\n            end--;\n        }\n    }\n}\n",
+      "python": "python\ndef reverse_array(arr):\n    start = 0\n    end = len(arr) - 1\n    while start < end:\n        arr[start], arr[end] = arr[end], arr[start]\n        start += 1\n        end -= 1\n",
+      "explanation_code": "The code uses two pointers, `start` and `end`, initially pointing to the first and last elements of the array, respectively. It swaps the elements at these pointers and moves them towards the center of the array until they meet."
+    },
+    {
+      "question": "Array 4: Check if an array is palindrome.",
+      "explanation": "This question requires checking whether an array is a palindrome (reads the same forward and backward).",
+      "input": "An array of integers.",
+      "output": "True if the array is a palindrome, False otherwise.",
+      "cpp": "cpp\n#include <iostream>\n\nbool isPalindrome(int arr[], int size) {\n    int start = 0;\n    int end = size - 1;\n    while (start < end) {\n        if (arr[start] != arr[end]) {\n            return false;\n        }\n        start++;\n        end--;\n    }\n    return true;\n}\n",
+      "java": "java\npublic class ArrayPalindrome {\n    public static boolean isPalindrome(int[] arr) {\n        int start = 0;\n        int end = arr.length - 1;\n        while (start < end) {\n            if (arr[start] != arr[end]) {\n                return false;\n            }\n            start++;\n            end--;\n        }\n        return true;\n    }\n}\n",
+      "python": "python\ndef is_palindrome(arr):\n    start = 0\n    end = len(arr) - 1\n    while start < end:\n        if arr[start] != arr[end]:\n            return False\n        start += 1\n        end -= 1\n    return True\n",
+      "explanation_code": "The code compares elements from both ends of the array. If any pair of elements doesn't match, it returns false. If the code reaches the center of the array without finding any mismatches, it returns true."
+    },
+    {
+      "question": "Array 5: Find the second largest element in an array.",
+      "explanation": "This question requires finding the second largest element in an array.",
+      "input": "An array of integers.",
+      "output": "The second largest element in the array.",
+      "cpp": "cpp\n#include <iostream>\n#include <climits>\n\nint findSecondLargest(int arr[], int size) {\n    int largest = INT_MIN;\n    int secondLargest = INT_MIN;\n    for (int i = 0; i < size; i++) {\n        if (arr[i] > largest) {\n            secondLargest = largest;\n            largest = arr[i];\n        }\n        else if (arr[i] > secondLargest && arr[i] != largest) {\n            secondLargest = arr[i];\n        }\n    }\n    return secondLargest;\n}\n",
+      "java": "java\npublic class ArraySecondLargest {\n    public static int findSecondLargest(int[] arr) {\n        int largest = Integer.MIN_VALUE;\n        int secondLargest = Integer.MIN_VALUE;\n        for (int i = 0; i < arr.length; i++) {\n            if (arr[i] > largest) {\n                secondLargest = largest;\n                largest = arr[i];\n            }\n            else if (arr[i] > secondLargest && arr[i] != largest) {\n                secondLargest = arr[i];\n            }\n        }\n        return secondLargest;\n    }\n}\n",
+      "python": "python\ndef find_second_largest(arr):\n    largest = float('-inf')\n    second_largest = float('-inf')\n    for num in arr:\n        if num > largest:\n            second_largest = largest\n            largest = num\n        elif num > second_largest and num != largest:\n            second_largest = num\n    return second_largest\n",
+      "explanation_code": "The code iterates through the array and maintains two variables, `largest` and `secondLargest`, to keep track of the largest and second largest elements found so far. It updates these variables accordingly whenever a larger element is encountered."
+    },
+    {
+      "question": "Array 6: Merge two sorted arrays into a single sorted array.",
+      "explanation": "This question requires merging two sorted arrays into a single sorted array.",
+      "input": "Two sorted arrays of integers.",
+      "output": "A single sorted array containing all elements from both input arrays.",
+      "cpp": "cpp\n#include <iostream>\n#include <vector>\n\nstd::vector<int> mergeArrays(std::vector<int>& arr1, std::vector<int>& arr2) {\n    std::vector<int> result;\n    int i = 0;\n    int j = 0;\n    while (i < arr1.size() && j < arr2.size()) {\n        if (arr1[i] < arr2[j]) {\n            result.push_back(arr1[i]);\n            i++;\n        }\n        else {\n            result.push_back(arr2[j]);\n            j++;\n        }\n    }\n    while (i < arr1.size()) {\n        result.push_back(arr1[i]);\n        i++;\n    }\n    while (j < arr2.size()) {\n        result.push_back(arr2[j]);\n        j++;\n    }\n    return result;\n}\n",
+      "java": "java\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class ArrayMerge {\n    public static List<Integer> mergeArrays(List<Integer> arr1, List<Integer> arr2) {\n        List<Integer> result = new ArrayList<>();\n        int i = 0;\n        int j = 0;\n        while (i < arr1.size() && j < arr2.size()) {\n            if (arr1.get(i) < arr2.get(j)) {\n                result.add(arr1.get(i));\n                i++;\n            }\n            else {\n                result.add(arr2.get(j));\n                j++;\n            }\n        }\n        while (i < arr1.size()) {\n            result.add(arr1.get(i));\n            i++;\n        }\n        while (j < arr2.size()) {\n            result.add(arr2.get(j));\n            j++;\n        }\n        return result;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\ndef merge_arrays(arr1: List[int], arr2: List[int]) -> List[int]:\n    result = []\n    i = 0\n    j = 0\n    while i < len(arr1) and j < len(arr2):\n        if arr1[i] < arr2[j]:\n            result.append(arr1[i])\n            i += 1\n        else:\n            result.append(arr2[j])\n            j += 1\n    while i < len(arr1):\n        result.append(arr1[i])\n        i += 1\n    while j < len(arr2):\n        result.append(arr2[j])\n        j += 1\n    return result\n",
+      "explanation_code": "The code initializes an empty result array and two pointers, `i` and `j`, pointing to the beginning of the two input arrays. It compares the elements at the current pointers and adds the smaller element to the result array. It then advances the corresponding pointer. The process continues until one of the arrays is exhausted. Finally, the code appends any remaining elements from the non-exhausted array to the result array."
+    },
+    {
+      "question": "Array 7: Find the sum of all elements in an array.",
+      "explanation": "This question requires calculating the sum of all elements in an array.",
+      "input": "An array of integers.",
+      "output": "The sum of all elements in the array.",
+      "cpp": "cpp\n#include <iostream>\n\nint arraySum(int arr[], int size) {\n    int sum = 0;\n    for (int i = 0; i < size; i++) {\n        sum += arr[i];\n    }\n    return sum;\n}\n",
+      "java": "java\npublic class ArraySum {\n    public static int arraySum(int[] arr) {\n        int sum = 0;\n        for (int i = 0; i < arr.length; i++) {\n            sum += arr[i];\n        }\n        return sum;\n    }\n}\n",
+      "python": "python\ndef array_sum(arr):\n    return sum(arr)\n",
+      "explanation_code": "The code iterates through the array and accumulates the sum of all elements in a variable called `sum`. It then returns the sum."
+    },
+    {
+      "question": "Array 8: Remove duplicates from an array.",
+      "explanation": "This question requires removing duplicate elements from an array.",
+      "input": "An array of integers (may contain duplicates).",
+      "output": "The array with duplicate elements removed.",
+      "cpp": "cpp\n#include <iostream>\n#include <unordered_set>\n#include <vector>\n\nstd::vector<int> removeDuplicates(int arr[], int size) {\n    std::unordered_set<int> uniqueSet;\n    std::vector<int> result;\n    for (int i = 0; i < size; i++) {\n        if (uniqueSet.find(arr[i]) == uniqueSet.end()) {\n            uniqueSet.insert(arr[i]);\n            result.push_back(arr[i]);\n        }\n    }\n    return result;\n}\n",
+      "java": "java\nimport java.util.HashSet;\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class ArrayDuplicates {\n    public static List<Integer> removeDuplicates(int[] arr) {\n        HashSet<Integer> uniqueSet = new HashSet<>();\n        List<Integer> result = new ArrayList<>();\n        for (int num : arr) {\n            if (!uniqueSet.contains(num)) {\n                uniqueSet.add(num);\n                result.add(num);\n            }\n        }\n        return result;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\n def remove_duplicates(arr: List[int]) -> List[int]:\n     unique_set = set()\n     result = []\n     for num in arr:\n         if num not in unique_set:\n             unique_set.add(num)\n             result.append(num)\n     return result\n",
+      "explanation_code": "The code uses a hash set (`unordered_set` in cpp, `HashSet` in java, or `set()` in python) to keep track of unique elements encountered so far. It also maintains a result array (`vector` in cpp, `ArrayList` in java, or a regular list in python) to store the non-duplicate elements. The code iterates through the array and adds each element to the unique set and result array only if it has not been encountered before."
+    },
+    {
+      "question": "Array 9: Find the minimum and maximum element in an array.",
+      "explanation": "This question requires finding both the minimum and maximum elements in an array.",
+      "input": "An array of integers.",
+      "output": "The minimum and maximum elements in the array.",
+      "cpp": "cpp\n#include <iostream>\n#include <climits>\n\nstruct MinMax {\n    int min;\n    int max;\n};\n\nMinMax findMinMax(int arr[], int size) {\n    MinMax result;\n    result.min = INT_MAX;\n    result.max = INT_MIN;\n    for (int i = 0; i < size; i++) {\n        if (arr[i] < result.min) {\n            result.min = arr[i];\n        }\n        if (arr[i] > result.max) {\n            result.max = arr[i];\n        }\n    }\n    return result;\n}\n",
+      "java": "java\npublic class ArrayMinMax {\n    public static class MinMax {\n        public int min;\n        public int max;\n    }\n\n    public static MinMax findMinMax(int[] arr) {\n        MinMax result = new MinMax();\n        result.min = Integer.MAX_VALUE;\n        result.max = Integer.MIN_VALUE;\n        for (int num : arr) {\n            if (num < result.min) {\n                result.min = num;\n            }\n            if (num > result.max) {\n                result.max = num;\n            }\n        }\n        return result;\n    }\n}\n",
+      "python": "python\ndef find_min_max(arr):\n    min_val = float('inf')\n    max_val = float('-inf')\n    for num in arr:\n        if num < min_val:\n            min_val = num\n        if num > max_val:\n            max_val = num\n    return {'min': min_val, 'max': max_val}\n",
+      "explanation_code": "The code initializes the minimum and maximum variables (`min` and `max`) to the maximum and minimum possible integer values, respectively. It then iterates through the array and updates these variables if a smaller minimum or larger maximum is found. Finally, it returns the minimum and maximum values as a structure, object, or dictionary."
+    },
+    {
+      "question": "Array 10: Find the kth smallest element in an array.",
+      "explanation": "This question requires finding the kth smallest element in an array.",
+      "input": "An array of integers and an integer k.",
+      "output": "The kth smallest element in the array.",
+      "cpp": "cpp\n#include <iostream>\n#include <algorithm>\n\nint findKthSmallest(int arr[], int size, int k) {\n    std::sort(arr, arr + size);\n    return arr[k - 1];\n}\n",
+      "java": "java\nimport java.util.Arrays;\n\npublic class ArrayKthSmallest {\n    public static int findKthSmallest(int[] arr, int k) {\n        Arrays.sort(arr);\n        return arr[k - 1];\n    }\n}\n",
+      "python": "python\ndef find_kth_smallest(arr, k):\n    arr.sort()\n    return arr[k - 1]\n",
+      "explanation_code": "The code uses a sorting algorithm (e.g., `std::sort` in cpp, `Arrays.sort` in java, or the `sort()` method in python) to sort the array in ascending order. It then returns the element at index `k - 1` to get the kth smallest element."
+    },
+    {
+      "question": "Array 11: Move all zeros to the end of an array.",
+      "explanation": "This question requires moving all zeros to the end of an array while maintaining the relative order of the non-zero elements.",
+      "input": "An array of integers.",
+      "output": "The same array with all zeros moved to the end.",
+      "cpp": "cpp\n#include <iostream>\n#include <vector>\n\nvoid moveZerosToEnd(std::vector<int>& arr) {\n    int n = arr.size();\n    int nonZeroIndex = 0;\n    for (int i = 0; i < n; i++) {\n        if (arr[i] != 0) {\n            arr[nonZeroIndex] = arr[i];\n            nonZeroIndex++;\n        }\n    }\n    while (nonZeroIndex < n) {\n        arr[nonZeroIndex] = 0;\n        nonZeroIndex++;\n    }\n}\n",
+      "java": "java\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class ArrayMoveZeros {\n    public static void moveZerosToEnd(List<Integer> arr) {\n        int n = arr.size();\n        int nonZeroIndex = 0;\n        for (int i = 0; i < n; i++) {\n            if (arr.get(i) != 0) {\n                arr.set(nonZeroIndex, arr.get(i));\n                nonZeroIndex++;\n            }\n        }\n        while (nonZeroIndex < n) {\n            arr.set(nonZeroIndex, 0);\n            nonZeroIndex++;\n        }\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef move_zeros_to_end(arr: List[int]) -> None:\n    non_zero_index = 0\n    for i in range(len(arr)):\n        if arr[i] != 0:\n            arr[non_zero_index] = arr[i]\n            non_zero_index += 1\n    while non_zero_index < len(arr):\n        arr[non_zero_index] = 0\n        non_zero_index += 1\n",
+      "explanation_code": "The code maintains a pointer, `nonZeroIndex`, to keep track of the next position to be filled with a non-zero element. It iterates through the array and whenever a non-zero element is encountered, it moves it to the position specified by `nonZeroIndex` and increments `nonZeroIndex`. After processing all elements, the code fills the remaining positions from `nonZeroIndex` to the end of the array with zeros."
+    },
+    {
+      "question": "Array 12: Find the majority element in an array.",
+      "explanation": "This question requires finding the majority element in an array, which appears more than n/2 times (where n is the size of the array).",
+      "input": "An array of integers.",
+      "output": "The majority element (if it exists), or -1 if there is no majority element.",
+      "cpp": "cpp\n#include <iostream>\n#include <unordered_map>\n\nint findMajorityElement(int arr[], int size) {\n    std::unordered_map<int, int> countMap;\n    for (int i = 0; i < size; i++) {\n        countMap[arr[i]]++;\n        if (countMap[arr[i]] > size / 2) {\n            return arr[i];\n        }\n    }\n    return -1;\n}\n",
+      "java": "java\nimport java.util.HashMap;\n\npublic class ArrayMajorityElement {\n    public static int findMajorityElement(int[] arr) {\n        HashMap<Integer, Integer> countMap = new HashMap<>();\n        int size = arr.length;\n        for (int num : arr) {\n            countMap.put(num, countMap.getOrDefault(num, 0) + 1);\n            if (countMap.get(num) > size / 2) {\n                return num;\n            }\n        }\n        return -1;\n    }\n}\n",
+      "python": "python\nfrom typing import List\nfrom collections import Counter\n\ndef find_majority_element(arr: List[int]) -> int:\n    count_map = Counter(arr)\n    size = len(arr)\n    for num, count in count_map.items():\n        if count > size / 2:\n            return num\n    return -1\n",
+      "explanation_code": "The code uses a hash map (`unordered_map` in cpp, `HashMap` in java, or `Counter` in python) to keep track of the count of each element in the array. It iterates through the array, updates the count in the map, and checks if the count exceeds half the size of the array. If so, it returns the corresponding element as the majority element. If no majority element is found, it returns -1."
+    },
+    {
+      "question": "Array 13: Reverse an array.",
+      "explanation": "This question requires reversing the elements of an array.",
+      "input": "An array of integers.",
+      "output": "The array with its elements reversed.",
+      "cpp": "cpp\n#include <iostream>\n#include <vector>\n\nvoid reverseArray(std::vector<int>& arr) {\n    int start = 0;\n    int end = arr.size() - 1;\n    while (start < end) {\n        std::swap(arr[start], arr[end]);\n        start++;\n        end--;\n    }\n}\n",
+      "java": "java\nimport java.util.Arrays;\n\npublic class ArrayReverse {\n    public static void reverseArray(int[] arr) {\n        int start = 0;\n        int end = arr.length - 1;\n        while (start < end) {\n            int temp = arr[start];\n            arr[start] = arr[end];\n            arr[end] = temp;\n            start++;\n            end--;\n        }\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef reverse_array(arr: List[int]) -> None:\n    start = 0\n    end = len(arr) - 1\n    while start < end:\n        arr[start], arr[end] = arr[end], arr[start]\n        start += 1\n        end -= 1\n",
+      "explanation_code": "The code uses two pointers, `start` and `end`, initialized to the beginning and end of the array, respectively. It swaps the elements at the corresponding positions of `start` and `end` and moves the pointers towards the center of the array until they meet. This process effectively reverses the elements in the array."
+    },
+    {
+      "question": "Array 14: Find the second largest element in an array.",
+      "explanation": "This question requires finding the second largest element in an array.",
+      "input": "An array of integers.",
+      "output": "The second largest element in the array.",
+      "cpp": "cpp\n#include <iostream>\n#include <climits>\n\nint findSecondLargest(int arr[], int size) {\n    int largest = INT_MIN;\n    int secondLargest = INT_MIN;\n    for (int i = 0; i < size; i++) {\n        if (arr[i] > largest) {\n            secondLargest = largest;\n            largest = arr[i];\n        }\n        else if (arr[i] > secondLargest && arr[i] != largest) {\n            secondLargest = arr[i];\n        }\n    }\n    return secondLargest;\n}\n",
+      "java": "java\npublic class ArraySecondLargest {\n    public static int findSecondLargest(int[] arr) {\n        int largest = Integer.MIN_VALUE;\n        int secondLargest = Integer.MIN_VALUE;\n        for (int num : arr) {\n            if (num > largest) {\n                secondLargest = largest;\n                largest = num;\n            }\n            else if (num > secondLargest && num != largest) {\n                secondLargest = num;\n            }\n        }\n        return secondLargest;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef find_second_largest(arr: List[int]) -> int:\n    largest = float('-inf')\n    second_largest = float('-inf')\n    for num in arr:\n        if num > largest:\n            second_largest = largest\n            largest = num\n        elif num > second_largest and num != largest:\n            second_largest = num\n    return second_largest\n",
+      "explanation_code": "The code maintains two variables, `largest` and `secondLargest`, initialized to the smallest possible integer value. It iterates through the array and updates these variables accordingly. If a larger element is found, it updates both `largest` and `secondLargest`. If a smaller element is found, it updates only `secondLargest` if it is greater than the current second largest and not equal to the largest. Finally, it returns the value of `secondLargest`."
+    },
+    {
+      "question": "Array 15: Find the sum of all subarrays of an array.",
+      "explanation": "This question requires finding the sum of all possible subarrays of an array.",
+      "input": "An array of integers.",
+      "output": "The sum of all subarrays.",
+      "cpp": "cpp\n#include <iostream>\n\nint sumOfSubarrays(int arr[], int size) {\n    int sum = 0;\n    for (int i = 0; i < size; i++) {\n        for (int j = i; j < size; j++) {\n            for (int k = i; k <= j; k++) {\n                sum += arr[k];\n            }\n        }\n    }\n    return sum;\n}\n",
+      "java": "java\npublic class ArraySubarraySum {\n    public static int sumOfSubarrays(int[] arr) {\n        int sum = 0;\n        int size = arr.length;\n        for (int i = 0; i < size; i++) {\n            for (int j = i; j < size; j++) {\n                for (int k = i; k <= j; k++) {\n                    sum += arr[k];\n                }\n            }\n        }\n        return sum;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef sum_of_subarrays(arr: List[int]) -> int:\n    size = len(arr)\n    sum = 0\n    for i in range(size):\n        for j in range(i, size):\n            for k in range(i, j + 1):\n                sum += arr[k]\n    return sum\n",
+      "explanation_code": "The code uses three nested loops to iterate through all possible subarrays of the array. The outer loop selects the starting index of the subarray, the middle loop selects the ending index, and the inner loop calculates the sum of the elements within the selected subarray. The code accumulates the sum of all subarrays and returns the total sum."
+    },
+    {
+      "question": "Array 16: Check if an array is sorted in non-decreasing order.",
+      "explanation": "This question requires checking whether an array is sorted in non-decreasing order (i.e., each element is less than or equal to the next element).",
+      "input": "An array of integers.",
+      "output": "True if the array is sorted in non-decreasing order, False otherwise.",
+      "cpp": "cpp\n#include <iostream>\n\nbool isSorted(int arr[], int size) {\n    for (int i = 0; i < size - 1; i++) {\n        if (arr[i] > arr[i + 1]) {\n            return false;\n        }\n    }\n    return true;\n}\n",
+      "java": "java\npublic class ArraySorted {\n    public static boolean isSorted(int[] arr) {\n        int size = arr.length;\n        for (int i = 0; i < size - 1; i++) {\n            if (arr[i] > arr[i + 1]) {\n                return false;\n            }\n        }\n        return true;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef is_sorted(arr: List[int]) -> bool:\n    size = len(arr)\n    for i in range(size - 1):\n        if arr[i] > arr[i + 1]:\n            return False\n    return True\n",
+      "explanation_code": "The code iterates through the array and checks if any adjacent elements violate the non-decreasing order condition. If a pair of elements is found where the current element is greater than the next element, the code immediately returns false to indicate that the array is not sorted. If the loop completes without finding any violations, the code returns true to indicate that the array is sorted in non-decreasing order."
+    },
+    {
+      "question": "Array 17: Remove duplicates from a sorted array.",
+      "explanation": "This question requires removing duplicates from a sorted array and returning the updated array with unique elements.",
+      "input": "A sorted array of integers.",
+      "output": "The array with duplicates removed and containing only unique elements.",
+      "cpp": "cpp\n#include <iostream>\n#include <vector>\n\nstd::vector<int> removeDuplicates(std::vector<int>& arr) {\n    int n = arr.size();\n    if (n == 0 || n == 1) {\n        return arr;\n    }\n    int j = 0;\n    for (int i = 0; i < n - 1; i++) {\n        if (arr[i] != arr[i + 1]) {\n            arr[j++] = arr[i];\n        }\n    }\n    arr[j++] = arr[n - 1];\n    arr.resize(j);\n    return arr;\n}\n",
+      "java": "java\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class ArrayRemoveDuplicates {\n    public static List<Integer> removeDuplicates(List<Integer> arr) {\n        int n = arr.size();\n        if (n == 0 || n == 1) {\n            return arr;\n        }\n        int j = 0;\n        for (int i = 0; i < n - 1; i++) {\n            if (!arr.get(i).equals(arr.get(i + 1))) {\n                arr.set(j++, arr.get(i));\n            }\n        }\n        arr.set(j++, arr.get(n - 1));\n        while (arr.size() > j) {\n            arr.remove(arr.size() - 1);\n        }\n        return arr;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef remove_duplicates(arr: List[int]) -> List[int]:\n    n = len(arr)\n    if n == 0 or n == 1:\n        return arr\n    j = 0\n    for i in range(n - 1):\n        if arr[i] != arr[i + 1]:\n            arr[j] = arr[i]\n            j += 1\n    arr[j] = arr[n - 1]\n    del arr[j + 1:]\n    return arr\n",
+      "explanation_code": "The code uses two pointers, `i` and `j`, to iterate through the array. It compares each element with the next element and if they are not equal, it assigns the current element to the position specified by `j` and increments `j`. This process removes duplicates and keeps only unique elements. Finally, the code resizes the array or removes elements beyond the index `j` to ensure that only the unique elements remain."
+    },
+    {
+      "question": "Array 18: Find the largest and smallest element in an array.",
+      "explanation": "This question requires finding the largest and smallest elements in an array.",
+      "input": "An array of integers.",
+      "output": "The largest and smallest elements in the array.",
+      "cpp": "cpp\n#include <iostream>\n#include <climits>\n\nvoid findMinMax(int arr[], int size, int& smallest, int& largest) {\n    smallest = INT_MAX;\n    largest = INT_MIN;\n    for (int i = 0; i < size; i++) {\n        if (arr[i] < smallest) {\n            smallest = arr[i];\n        }\n        if (arr[i] > largest) {\n            largest = arr[i];\n        }\n    }\n}\n",
+      "java": "java\npublic class ArrayMinMax {\n    public static void findMinMax(int[] arr, int[] result) {\n        int smallest = Integer.MAX_VALUE;\n        int largest = Integer.MIN_VALUE;\n        for (int num : arr) {\n            if (num < smallest) {\n                smallest = num;\n            }\n            if (num > largest) {\n                largest = num;\n            }\n        }\n        result[0] = smallest;\n        result[1] = largest;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef find_min_max(arr: List[int]) -> List[int]:\n    smallest = float('inf')\n    largest = float('-inf')\n    for num in arr:\n        if num < smallest:\n            smallest = num\n        if num > largest:\n            largest = num\n    return [smallest, largest]\n",
+      "explanation_code": "The code initializes `smallest` and `largest` variables to the maximum and minimum possible integer values, respectively. It iterates through the array and updates these variables if a smaller or larger element is encountered. Finally, it stores the smallest and largest elements in the respective output variables (`result` array in java) and returns them."
+    },
+    {
+      "question": "Array 19: Rotate an array to the right by a given number of steps.",
+      "explanation": "This question requires rotating an array to the right by a given number of steps.",
+      "input": "An array of integers and the number of steps to rotate.",
+      "output": "The array after rotating it to the right by the given number of steps.",
+      "cpp": "cpp\n#include <iostream>\n#include <vector>\n\nvoid rotateArray(std::vector<int>& arr, int k) {\n    int n = arr.size();\n    k = k % n;\n    std::reverse(arr.begin(), arr.end());\n    std::reverse(arr.begin(), arr.begin() + k);\n    std::reverse(arr.begin() + k, arr.end());\n}\n",
+      "java": "java\nimport java.util.Arrays;\n\npublic class ArrayRotate {\n    public static void rotateArray(int[] arr, int k) {\n        int n = arr.length;\n        k = k % n;\n        reverseArray(arr, 0, n - 1);\n        reverseArray(arr, 0, k - 1);\n        reverseArray(arr, k, n - 1);\n    }\n\n    private static void reverseArray(int[] arr, int start, int end) {\n        while (start < end) {\n            int temp = arr[start];\n            arr[start] = arr[end];\n            arr[end] = temp;\n            start++;\n            end--;\n        }\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef rotate_array(arr: List[int], k: int) -> None:\n    n = len(arr)\n    k = k % n\n    arr.reverse()\n    arr[:k] = reversed(arr[:k])\n    arr[k:] = reversed(arr[k:])\n",
+      "explanation_code": "The code first calculates the effective number of steps by taking the modulo (`k % n`) to handle cases where `k` is larger than the array size. It then uses the reverse technique to rotate the array. It reverses the entire array, then reverses the first `k` elements, and finally reverses the remaining elements. This process effectively rotates the array to the right by `k` steps."
+    },
+    {
+      "question": "Array 20: Find the maximum sum subarray within a given array.",
+      "explanation": "This question requires finding the contiguous subarray within a given array that has the maximum sum.",
+      "input": "An array of integers.",
+      "output": "The maximum sum of a subarray within the array.",
+      "cpp": "cpp\n#include <iostream>\n#include <climits>\n\nint maxSubarraySum(int arr[], int size) {\n    int maxSum = INT_MIN;\n    int currentSum = 0;\n    for (int i = 0; i < size; i++) {\n        currentSum += arr[i];\n        if (currentSum > maxSum) {\n            maxSum = currentSum;\n        }\n        if (currentSum < 0) {\n            currentSum = 0;\n        }\n    }\n    return maxSum;\n}\n",
+      "java": "java\npublic class ArrayMaxSubarraySum {\n    public static int maxSubarraySum(int[] arr) {\n        int maxSum = Integer.MIN_VALUE;\n        int currentSum = 0;\n        for (int num : arr) {\n            currentSum += num;\n            if (currentSum > maxSum) {\n                maxSum = currentSum;\n            }\n            if (currentSum < 0) {\n                currentSum = 0;\n            }\n        }\n        return maxSum;\n    }\n}\n",
+      "python": "python\nfrom typing import List\n\n\ndef max_subarray_sum(arr: List[int]) -> int:\n    max_sum = float('-inf')\n    current_sum = 0\n    for num in arr:\n        current_sum += num\n        if current_sum > max_sum:\n            max_sum = current_sum\n        if current_sum < 0:\n            current_sum = 0\n    return max_sum\n",
+      "explanation_code": "The code uses Kadane's algorithm to find the maximum sum subarray. It maintains two variables, `maxSum` and `currentSum`, initialized to the smallest possible integer value and 0, respectively. It iterates through the array and updates `currentSum` by adding the current element. If `currentSum` becomes greater than `maxSum`, it updates `maxSum`. If `currentSum` becomes negative, it resets `currentSum` to 0, effectively considering a new potential subarray. Finally, it returns the `maxSum` as the maximum sum of a subarray within the given array."
+    }
+  ]
+}
