@@ -5,7 +5,7 @@ const questionsData = require("./dsa.json");
 const questions = questionsData.questions;
 
 const webhookUrl =
-  "https://discord.com/api/webhooks/1110440444724256779/7aT9Eiv7zYC0tWPDFiTJHBcjYMewUUil0WBOlP6OoTj9RSTdeaNc8DQn4LCV01dBj-EJ";
+  "";
 
 function sendQuestionToWebhook(questionIndex) {
   let color;
